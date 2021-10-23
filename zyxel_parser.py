@@ -28,13 +28,13 @@ def download_firmware(name,link):
                         f.close()
 
 
+
 if not os.path.exists(firmware_dir):
     os.mkdir(firmware_dir)
 else:
     print("zyxel_firmware/ exist, please remove and run again!!")
     exit
 
-#response = requests.get("https://www.zyxel.com/support/download_landing.shtml")
 for c in range(ord('A'),ord('Z')+1):
     response = requests.get("https://www.zyxel.com/Dropdowns.shtml?ikey=support&c=gb&l=en&dataType=json&phrase="+chr(c))
 
