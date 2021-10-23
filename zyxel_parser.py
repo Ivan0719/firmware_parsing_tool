@@ -22,7 +22,7 @@ def download_firmware(name,link):
                         print("Downloading... : "+name.replace('%20','_')+"_"+firmware.text)
                         if not os.path.exists(firmware_dir+"/"+name.replace('%20','_')):
                             os.mkdir(firmware_dir+"/"+name.replace('%20','_'))
-                        download_file = requests.get("https://download.zyxel.com/"+name+"/firmware"+name+"_"+firmware.text+".zip")
+                        download_file = requests.get("https://download.zyxel.com/"+name+"/firmware/"+name+"_"+firmware.text+".zip")
                         with open(firmware_dir+"/"+name.replace('%20','_')+"/"+name.replace('%20','_')+firmware.text+".zip", "wb") as f:
                                 f.write(download_file.content)
                         f.close()
