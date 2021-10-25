@@ -8,6 +8,7 @@ dev_list = []
 firmware_dir = "zyxel_firmware"
 
 def download_firmware(name,link):
+
     response = requests.get("https://www.zyxel.com/support/SupportLandingSR.shtml?c=gb&l=en&kbid="+link+"&md="+name)
     soup = BeautifulSoup(response.text, "html.parser")
     tables  = soup.find_all("table", class_="blueTable table")
@@ -19,15 +20,15 @@ def download_firmware(name,link):
                 if "Firmware" in str(tr):
                     firmwares = tr.find_all("option")
                     for firmware in firmwares:
+                        download_file = requests.get("https://download.zyxel.com/"+name.replace('%20','_')+"/firmware/"+name+"_"+firmware.text+".zip")
+                        if download_file.text[0:6] == "<head>":
+                            return
                         print("Downloading... : "+name.replace('%20','_')+"_"+firmware.text)
                         if not os.path.exists(firmware_dir+"/"+name.replace('%20','_')):
                             os.mkdir(firmware_dir+"/"+name.replace('%20','_'))
-                        print("https://download.zyxel.com/"+name.replace('%20','_')+"/firmware/"+name+"_"+firmware.text+".zip")
-                        download_file = requests.get("https://download.zyxel.com/"+name.replace('%20','_')+"/firmware/"+name+"_"+firmware.text+".zip")
                         with open(firmware_dir+"/"+name.replace('%20','_')+"/"+name.replace('%20','_')+firmware.text+".zip", "wb") as f:
                                 f.write(download_file.content)
                         f.close()
-
 
 if not os.path.exists(firmware_dir):
     os.mkdir(firmware_dir)
