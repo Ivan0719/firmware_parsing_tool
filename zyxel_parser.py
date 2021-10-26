@@ -21,7 +21,8 @@ def download_firmware(name,link):
                     firmwares = tr.find_all("option")
                     for firmware in firmwares:
                         download_file = requests.get("https://download.zyxel.com/"+name.replace('%20','_')+"/firmware/"+name+"_"+firmware.text+".zip")
-                        if download_file.text[0:6] == "<head>":
+                        
+                        if "zip" not in download_file.headers.get('content-type'):
                             return
                         print("Downloading... : "+name.replace('%20','_')+"_"+firmware.text)
                         if not os.path.exists(firmware_dir+"/"+name.replace('%20','_')):
