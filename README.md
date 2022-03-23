@@ -17,3 +17,7 @@ $ python3 zyxel_parser.py
 ```
 $ python3 tpLink_parser.py
 ```
+* MOXA
+```
+$ python3 moxa_parser.py
+```
