@@ -27,6 +27,7 @@ def download_firmware(device_name,link):
         if finded:
             break
     if finded:
+        device_name = device_name.replace('/','_')
         firmware_file = requests.get(firmware_link, headers=headers)
         print("Downloading "+firmware_link.split('/')[-1])
         if not os.path.exists(firmware_dir+"/"+device_name):
